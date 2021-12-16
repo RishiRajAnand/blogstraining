@@ -23,12 +23,9 @@ public class BloggingServiceImpl implements BloggingService {
     }
 
     @Transactional
-    public Blog postBlog(String name, String author) {
-        Blog blog = new Blog();
-        blog.author = author;
-        blog.name = name;
+    public Blog postBlog(Blog blog) {
         blog.persist();
-        return  blog;
+        return blog;
     }
 
     public Blog getBlogByName(String name) {
@@ -43,12 +40,17 @@ public class BloggingServiceImpl implements BloggingService {
         return  null;
     }
 
-    public Blog updateBlogByName(String name, String author) {
-
-        return  null;
+    @Transactional
+    public String deletelogById(long id) {
+         return  bloggingRepository.findanddelete(id);
     }
 
     public List<Blog> blogByAuthorName(String name) {
+
         return bloggingRepository.getBlogsByAuthorName(name);
+    }
+
+    public Blog UpdateBlog(Blog blog) {
+        return bloggingRepository.UpdateBlog(blog);
     }
 }

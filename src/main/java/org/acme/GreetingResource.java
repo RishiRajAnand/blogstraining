@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -23,7 +25,7 @@ public class GreetingResource {
     @Path("/blog")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public List<Blog> helloWithquery(@QueryParam("id") String id) {
+    public List<Blog> helloWithquery() {
       return bloggingService.getBlogs();
     }
 
@@ -38,15 +40,23 @@ public class GreetingResource {
     @POST
     @Path("/blog")
     @Produces(MediaType.APPLICATION_JSON)
-    public Blog postvblog(@QueryParam("name") String name, @QueryParam("author") String author) {
-        return bloggingService.postBlog(name, author);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Blog postvblog(Blog blog) {
+        return bloggingService.postBlog(blog);
     }
 
     @PUT
     @Path("/blog")
     @Produces(MediaType.APPLICATION_JSON)
-    public Blog updatevblog(@QueryParam("name") String name, @QueryParam("author") String author) {
-        return bloggingService.updateBlogByName(name, author);
+    public Blog updatevblog(Blog blog) {
+        return bloggingService.UpdateBlog(blog);
+    }
+
+    @DELETE
+    @Path("/blog/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteblog(@PathParam("id") long id) {
+        return bloggingService.deletelogById(id);
     }
 
     @GET

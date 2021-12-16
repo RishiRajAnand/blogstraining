@@ -6,11 +6,13 @@ public interface BloggingService {
 
      List<Blog> getBlogs();
 
-     Blog postBlog(String name, String auhor);
+     Blog postBlog(Blog blog);
 
      Blog getBlogByName(String name);
 
-     Blog updateBlogByName(String name, String author);
+     String deletelogById(long id);
 
      List<Blog> blogByAuthorName(String name);
+
+     Blog UpdateBlog(Blog blog);
 }
